@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.Set;
+
 import org.openqa.selenium.support.ui.Select;
 
 public class BookingcomTest {
@@ -41,8 +42,8 @@ public class BookingcomTest {
             popup.click();
             System.out.println("Pop up kapatıldı.");
             checkPopUp = true;
-        }
-        catch (Exception e) {
+            //System.out.println(checkPopUp);
+        } catch (Exception e) {
             System.out.println("Pop up çıkmadı. Sonraki sayfada tekrar denenecek...");
         }
 
@@ -51,8 +52,8 @@ public class BookingcomTest {
         WebElement firstOption = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(("autocomplete-result-0"))));
         firstOption.click();
 
-        WebElement startDate = driver.findElement(By.xpath("//td[@role='gridcell']//span[@data-date='2024-11-25']"));
-        WebElement endDate = driver.findElement(By.xpath("//td[@role='gridcell']//span[@data-date='2024-11-27']"));
+        WebElement startDate = driver.findElement(By.xpath("//td[@role='gridcell']//span[@data-date='2024-12-03']"));
+        WebElement endDate = driver.findElement(By.xpath("//td[@role='gridcell']//span[@data-date='2024-12-06']"));
         startDate.click();
         endDate.click();
 
@@ -64,14 +65,18 @@ public class BookingcomTest {
     public void filterSelection() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        try {
-            WebElement popup = wait.until(ExpectedConditions.visibilityOfElementLocated(closePopup));
-            driver.findElement(closePopup);
-            popup.click();
-            System.out.println("Pop up kapatıldı.");
+        if(!checkPopUp) {
+            try {
+                WebElement popup = wait.until(ExpectedConditions.visibilityOfElementLocated(closePopup));
+                driver.findElement(closePopup);
+                popup.click();
+                System.out.println("Pop up kapatıldı.");
+            } catch (Exception e) {
+                System.out.println("Pop up çıkmadı. Test devam ediyor...");
+            }
         }
-        catch (Exception e ) {
-            System.out.println("Pop up çıkmadı. Test devam ediyor...");
+        else {
+            System.out.println("Pop-up başta kapatıldı.");
         }
 
         WebElement sort = wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -81,6 +86,7 @@ public class BookingcomTest {
         WebElement sortSelect = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath(("//button[@type='button' and @aria-label='Price (lowest first)']"))));
         sortSelect.click();
+        System.out.println("Sıralama yapıldı.");
 
         WebElement propertyTypeClick = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath(("//div[@data-testid='filters-group-label-content' and text()= 'Hotels']"))));
@@ -97,7 +103,7 @@ public class BookingcomTest {
         WebElement distanceToCentral = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath(("//div[@data-testid='filters-group-label-content' and text()= 'Less than 3 km']"))));
         distanceToCentral.click();
-
+        System.out.println("İstenen özellikler seçildi.");
 
         int click = 2;
         int n = 0;
@@ -105,13 +111,12 @@ public class BookingcomTest {
         WebElement desiredRoomNumber = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath(("//button[@type='button' and @aria-hidden='true'][2]"))));
 
-        while(n<click) {
+        while (n < click) {
             desiredRoomNumber.click();
             n++;
         }
 
-        WebElement firstHotel = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath(("//div[@data-testid='title'][1]"))));
+        WebElement firstHotel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(("//div[@data-testid='title'][1]"))));
         firstHotel.click();
 
         // Mevcut pencere (sekme) handle'larını al
@@ -140,8 +145,7 @@ public class BookingcomTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
 
         try {
-            WebElement name = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath(("//input[@data-testid='user-details-firstname']"))));
+            WebElement name = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(("//input[@data-testid='user-details-firstname']"))));
             name.click();
             name.sendKeys("Muhammed");
 
@@ -189,7 +193,8 @@ public class BookingcomTest {
         }
     }
 
-/*    @AfterClass
+/*
+    @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();

@@ -35,7 +35,7 @@ public class BookingcomTest {
     public void openWebsite() {
         driver.get("https://www.booking.com");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-
+        System.out.println("Bu da bir başka deneme");
         try {
             WebElement popup = wait.until(ExpectedConditions.visibilityOfElementLocated(closePopup));
             driver.findElement(closePopup);

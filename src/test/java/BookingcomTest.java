@@ -18,7 +18,7 @@ import org.openqa.selenium.support.ui.Select;
 public class BookingcomTest {
     WebDriver driver = new ChromeDriver();
     By closePopup = By.xpath("//button[@aria-label='Dismiss sign-in info.']");
-    Boolean checkPopUp = false;
+    Boolean checkPopUp = (Boolean) false;
 
     @BeforeClass
     public void setUp() {
@@ -41,7 +41,7 @@ public class BookingcomTest {
             driver.findElement(closePopup);
             popup.click();
             System.out.println("Pop up kapatıldı.");
-            checkPopUp = true;
+            checkPopUp = (Boolean) true;
             //System.out.println(checkPopUp);
         } catch (Exception e) {
             System.out.println("Pop up çıkmadı. Sonraki sayfada tekrar denenecek...");

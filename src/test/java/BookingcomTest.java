@@ -105,7 +105,7 @@ public class BookingcomTest {
         distanceToCentral.click();
         System.out.println("İstenen özellikler seçildi.");
 
-        int click = 2;
+/*        int click = 2;
         int n = 0;
 
         WebElement desiredRoomNumber = wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -114,7 +114,7 @@ public class BookingcomTest {
         while (n < click) {
             desiredRoomNumber.click();
             n++;
-        }
+        }*/
 
         WebElement firstHotel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(("//div[@data-testid='title'][1]"))));
         firstHotel.click();
